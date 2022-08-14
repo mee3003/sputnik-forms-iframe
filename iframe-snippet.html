@@ -1,0 +1,20 @@
+<iframe
+  src="https://sputnik-forms.s3.eu-central-1.amazonaws.com/DEV/index.html"
+  id="child-iframe"
+  style="width: 100%"
+></iframe>
+<script>
+  const iframe = document.querySelector("#child-iframe");
+  window.addEventListener(
+    "message",
+    function (e) {
+      let message = e.data;
+      if (e.origin == "https://sputnik-forms.s3.eu-central-1.amazonaws.com") {
+        const height = message.height + 100;
+
+        iframe.style.height = `${height}px`;
+      }
+    },
+    false
+  );
+</script>
