@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Frame example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div style="background: green">
+      <!-- start iframe integration -->
+      <style>
+        .sputnyq-frame {
+          width: 100%;
+          border: 0;
+        }
+      </style>
+
+      <iframe
+        src="https://forms.sputnyq.de/DEV/iframe.html#/1"
+        id="child-iframe"
+        class="sputnyq-frame"
+      ></iframe>
+
+      <script>
+        // automatically change the iframe height
+        const iframe = document.querySelector("#child-iframe");
+
+        window.addEventListener(
+          "message",
+          function (e) {
+            let message = e.data;
+            if (e.origin == "https://forms.sputnyq.de") {
+              const height = message.height + 20;
+              iframe.style.height = `${height}px`;
+            }
+          },
+          false
+        );
+      </script>
+      <!-- end -->
+    </div>
+  </body>
+</html>
