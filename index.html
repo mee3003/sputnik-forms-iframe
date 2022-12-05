@@ -19,24 +19,30 @@
       <iframe
         src="https://forms.sputnyq.de/DEV/iframe.html#/1"
         id="child-iframe"
-        class="sputnyq-frame"
       ></iframe>
 
       <script>
         // automatically change the iframe height
         const iframe = document.querySelector("#child-iframe");
 
-        window.addEventListener(
-          "message",
-          function (e) {
-            let message = e.data;
-            if (e.origin == "https://forms.sputnyq.de") {
+        function redirect() {
+          window.location.href = "https://google.de";
+        }
+        function _eventListener(e) {
+          const message = e.data;
+          if (e.origin == "https://forms.sputnyq.de") {
+            if (e["form-event"] == "HEIGHT_CHANGE" && iframe) {
               const height = message.height + 20;
               iframe.style.height = `${height}px`;
+              return;
+            } else if (e["form-event"] == "UPLOAD_SUCCESS") {
+              redirect();
+              return;
             }
-          },
-          false
-        );
+          }
+        }
+
+        window.addEventListener("message", _eventListener, false);
       </script>
       <!-- end -->
     </div>
