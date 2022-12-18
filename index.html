@@ -29,13 +29,13 @@
           window.location.href = "https://google.de";
         }
         function _eventListener(e) {
-          const message = e.data;
           if (e.origin == "https://forms.sputnyq.de") {
-            if (e["form-event"] == "HEIGHT_CHANGE" && iframe) {
+            const message = e.data;
+            if (message["form-event"] == "HEIGHT_CHANGE" && iframe) {
               const height = message.height + 20;
               iframe.style.height = `${height}px`;
               return;
-            } else if (e["form-event"] == "UPLOAD_SUCCESS") {
+            } else if (message["form-event"] == "UPLOAD_SUCCESS") {
               redirect();
               return;
             }
